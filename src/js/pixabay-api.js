@@ -5,10 +5,9 @@ import 'izitoast/dist/css/iziToast.min.css';
 import simpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const API_KEY = '44335332-ac36bc3e12fb03490a95e8e95';
-const BASE_URL = 'https://pixabay.com/api/';
-
 function fetchImages(query) {
+  const API_KEY = '44335332-ac36bc3e12fb03490a95e8e95';
+  const BASE_URL = 'https://pixabay.com/api/';
   const params = new URLSearchParams({
     key: API_KEY,
     q: query,
@@ -53,6 +52,8 @@ function renderImages(images) {
     closeText: 'Закрити',
     navText: ['<', '>'],
   });
+
+  console.log(lightbox);
 }
 
 ///////додамо подію для форми пошуку
