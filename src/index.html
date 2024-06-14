@@ -11,16 +11,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css" />
+
+
 </head>
 
 <body>
+
   <form id="search-form">
     <input type="text" id="search-input" placeholder="Search images...">
     <button type="submit">Search</button>
   </form>
-  <div id="gallery"></div>
+  <div class="loader"></div>
 
-  <script type="module" src="./main.js"></script>
+  <div id="gallery" class="gallery"></div>
+
+  <script type="module" src="./js/pixabay-api.js"></script>
 </body>
 
 </html>
