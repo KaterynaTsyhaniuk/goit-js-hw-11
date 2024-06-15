@@ -1,43 +1,53 @@
-'use strict';
-import iziToast from 'izitoast';
 import { fetchImages } from './js/pixabay-api.js';
-import { renderImages } from './js/render-functions.js';
+import { displayImages } from './js/render-functions.js';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-document.getElementById('search-form').addEventListener('submit', event => {
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
+import imageUrl from './img/close.png';
+const searchForm = document.getElementById('search-form');
+const searchInput = document.getElementById('search-input');
+const loader = document.getElementById('loader');
+
+searchForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  const searchInput = document.getElementById('search-input');
-  const query = searchInput.value.trim();
+  const searchTerm = searchInput.value.trim();
 
-  if (!query) {
+  if (searchTerm === '') {
     iziToast.error({
       title: 'Error',
-      message: 'Search query cannot be empty!',
+      message: 'Please enter a search term.',
+      position: 'topRight',
+      titleColor: '#fff',
+      titleSize: '16px',
+      backgroundColor: 'red',
+      messageColor: 'white',
+      iconUrl: imageUrl,
+      theme: 'dark',
     });
     return;
   }
 
-  const loader = document.getElementById('loader');
-  loader.style.display = 'block';
+  loader.style.display = 'block'; // Відображення індикатора завантаження
 
-  try {
-    const data = fetchImages(query);
-    if (data.hits.length === 0) {
-      iziToast.info({
-        title: 'Info',
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
-      });
-    } else {
-      renderImages(data.hits);
-    }
-  } catch (error) {
-    iziToast.error({
-      title: 'Error',
-      message: error.message,
+  fetchImages(searchTerm)
+    .then(data => {
+      loader.style.display = 'none'; // Приховання індикатора завантаження
+      displayImages(data.hits);
+      initializeLightbox();
+    })
+    .catch(error => {
+      loader.style.display = 'none';
     });
-  } finally {
-    loader.style.display = 'none';
-  }
 
-  searchInput.value = '';
+  searchForm.reset();
 });
+function initializeLightbox() {
+  const lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionsDelay: 250,
+  });
+  lightbox.refresh();
+}

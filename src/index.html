@@ -11,21 +11,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.7.0/simple-lightbox.min.css">
+
 
 
 </head>
 
 <body>
 
-  <form id="search-form">
-    <input type="text" id="search-input" placeholder="Search images...">
-    <button type="submit">Search</button>
-  </form>
-  <div class="loader"></div>
+  <div class="container">
 
-  <div id="gallery" class="gallery"></div>
+    <form id="search-form">
+      <input type="text" id="search-input" placeholder="Search images...">
+      <button type="submit">Search</button>
+    </form>
+    <div id="loader" class="loader"></div>
+    <div id="gallery" class="gallery"></div>
+  </div>
 
-  <script type="module" src="./js/pixabay-api.js"></script>
+
+
+  <script type="module" src="./main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.7.0/simple-lightbox.min.js"></script>
 </body>
 
 </html>
