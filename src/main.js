@@ -30,11 +30,11 @@ searchForm.addEventListener('submit', function (event) {
     return;
   }
 
-  loader.style.display = 'block'; // Відображення індикатора завантаження
+  loader.style.display = 'block';
 
   fetchImages(searchTerm)
     .then(data => {
-      loader.style.display = 'none'; // Приховання індикатора завантаження
+      loader.style.display = 'none';
       displayImages(data.hits);
       initializeLightbox();
     })
