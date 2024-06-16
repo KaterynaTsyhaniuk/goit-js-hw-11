@@ -12,7 +12,7 @@ const searchInput = document.getElementById('search-input');
 const loader = document.getElementById('loader');
 loader.classList.add('loader');
 
-loader.style.display = 'none';
+// loader.style.display = 'none';
 searchForm.addEventListener('submit', function (event) {
   event.preventDefault();
   const searchTerm = searchInput.value.trim();
