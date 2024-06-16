@@ -46,7 +46,6 @@ searchForm.addEventListener('submit', function (event) {
         displayImages(data.hits);
         initializeLightbox();
       }, 3000);
-      // loader.style.display = 'none';
     })
     .catch(error => {
       loader.style.display = 'none';
