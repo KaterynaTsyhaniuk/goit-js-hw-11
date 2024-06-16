@@ -13,8 +13,11 @@ const loader = document.getElementById('loader');
 loader.classList.add('loader');
 
 loader.style.display = 'none';
+
 searchForm.addEventListener('submit', function (event) {
   event.preventDefault();
+
+  clearGallery();
   const searchTerm = searchInput.value.trim();
 
   if (searchTerm === '') {
@@ -33,15 +36,13 @@ searchForm.addEventListener('submit', function (event) {
   }
 
   loader.style.display = 'inline-block';
-  setTimeout(() => {
-    loader.style.display = 'none';
-  }, 5000);
 
   fetchImages(searchTerm)
     .then(data => {
       setTimeout(() => {
         loader.style.display = 'none';
       }, 2000);
+
       setTimeout(() => {
         displayImages(data.hits);
         initializeLightbox();
@@ -53,6 +54,11 @@ searchForm.addEventListener('submit', function (event) {
 
   searchForm.reset();
 });
+
+function clearGallery() {
+  const gallery = document.querySelector('.gallery');
+  gallery.innerHTML = ''; // Очистити HTML від старих зображень
+}
 function initializeLightbox() {
   const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
