@@ -12,7 +12,7 @@ const searchInput = document.getElementById('search-input');
 const loader = document.getElementById('loader');
 loader.classList.add('loader');
 
-// loader.style.display = 'none';
+loader.style.display = 'none';
 searchForm.addEventListener('submit', function (event) {
   event.preventDefault();
   const searchTerm = searchInput.value.trim();
@@ -33,12 +33,20 @@ searchForm.addEventListener('submit', function (event) {
   }
 
   loader.style.display = 'inline-block';
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 5000);
 
   fetchImages(searchTerm)
     .then(data => {
-      loader.style.display = 'none';
-      displayImages(data.hits);
-      initializeLightbox();
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 2000);
+      setTimeout(() => {
+        displayImages(data.hits);
+        initializeLightbox();
+      }, 3000);
+      // loader.style.display = 'none';
     })
     .catch(error => {
       loader.style.display = 'none';
