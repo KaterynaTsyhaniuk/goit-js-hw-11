@@ -4,11 +4,13 @@ import { fetchImages } from './js/pixabay-api.js';
 import { displayImages } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-
 import imageUrl from './img/close.png';
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionsDelay: 250,
+});
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const loader = document.getElementById('loader');
@@ -41,30 +43,18 @@ searchForm.addEventListener('submit', function (event) {
 
   fetchImages(searchTerm)
     .then(data => {
-      setTimeout(() => {
-        loader.style.display = 'none';
-      }, 2000);
-
-      setTimeout(() => {
-        displayImages(data.hits);
-        initializeLightbox();
-      }, 3000);
+      loader.style.display = 'none';
+      displayImages(data.hits);
+      initializeLightbox();
     })
     .catch(error => {
       loader.style.display = 'none';
     });
-
+  lightbox.refresh();
   searchForm.reset();
 });
 
 function clearGallery() {
   const gallery = document.querySelector('.gallery');
-  gallery.innerHTML = ''; // Очистити HTML від старих зображень
-}
-function initializeLightbox() {
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionsDelay: 250,
-  });
-  lightbox.refresh();
+  gallery.innerHTML = '';
 }
