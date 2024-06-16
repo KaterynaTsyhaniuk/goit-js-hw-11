@@ -10,7 +10,9 @@ import imageUrl from './img/close.png';
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const loader = document.getElementById('loader');
+loader.classList.add('loader');
 
+loader.style.display = 'none';
 searchForm.addEventListener('submit', function (event) {
   event.preventDefault();
   const searchTerm = searchInput.value.trim();
@@ -30,7 +32,7 @@ searchForm.addEventListener('submit', function (event) {
     return;
   }
 
-  loader.style.display = 'block';
+  loader.style.display = 'inline-block';
 
   fetchImages(searchTerm)
     .then(data => {
